@@ -3,17 +3,71 @@
 <head>
   <title>time management hub!</title>
   <style>
-    body { font-family: Arial; text-align: center; margin: 40px; }
-    a { display: inline-block; margin: 20px; padding: 12px 24px;
-        background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; }
-    a:hover { background: #45a049; }
+    body {
+      font-family: "Comic Sans MS", "Poppins", cursive;
+      text-align: center;
+      margin: 40px;
+      background-color: #ffe6f2; 
+      background-image: url('https://www.transparenttextures.com/patterns/flowers.png');
+      background-repeat: repeat;
+      color: #b34d7d; 
+      cursor: url('https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/32/flower-icon.png') 16 16, auto;
+      
+    }
+
+    h1 {
+      font-size: 2.2em; 
+      color: #ff66b2;
+      text-shadow: 2px 2px #fff0f5;
+      display: inline-block; 
+      white-space: nowrap; 
+      margin: 0 auto;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    a {
+      display: inline-block;
+      margin: 20px;
+      padding: 12px 24px;
+      background: #ffb6c1; 
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: bold;
+      box-shadow: 2px 2px 6px rgba(255, 105, 180, 0.3);
+      transition: 0.3s;
+    }
+
+    a:hover {
+      background: #ff8cb3;
+      transform: scale(1.05);
+      box-shadow: 3px 3px 8px rgba(255, 105, 180, 0.5);
+    }
+
+    .container {
+      border: 3px solid #ffb6c1;
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      background: #fffafa;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+    }
   </style>
 </head>
-<body>
-  <h1>time management hub!</h1>
-  <p>Choose a tool:</p>
-  <a href="{{ url_for('pomodoro_page') }}">pomodoro timer</a>
-  <a href="{{ url_for('todo_page') }}">to-do list</a>
+
+<body> 
+  <div class="container">
+    <h1>🌸time management hub!🌸</h1>
+    <p>pick a tool to get started!</p>
+    <a href="{{ url_for('pomodoro_page') }}">pomodoro timer</a>
+    <a href="{{ url_for('todo_page') }}">to-do list</a>
+  </div>
+  <br><br>
+  <b>IT'S TIME TO LOCK IN NOW!</b>  
 </body>
 </html>
-
