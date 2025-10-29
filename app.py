@@ -78,20 +78,3 @@ def home():
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
 
-
-ljljl
-
-sdfjlsdf
-
-
-sdffdsjkljdls
-
-sfdsfd
-
-
-dfsf
-
-klj
-
-sdfjjl
-
