@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>to-do list!</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    h1 { text-align: center; }
+    form { text-align: center; margin-bottom: 20px; }
+    input[type=text] { padding: 8px; width: 250px; }
+    button { padding: 8px 16px; }
+    ul { list-style: none; padding: 0; max-width: 400px; margin: auto; }
+    li { background: #f0f0f0; padding: 10px; margin: 5px 0;
+         display: flex; justify-content: space-between; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>to-do list!</h1>
+
+  <form method="POST">
+    <input type="text" name="task" placeholder="Enter a new task" required>
+    <button name="add">add</button>
+  </form>
+
+  <ul>
+    {% for task in tasks %}
+      <li>
+        {{ task }}
+        <form method="POST" style="display:inline;">
+          <button name="delete" value="{{ loop.index0 }}">❌</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <br>
+  <div style="text-align:center;">
+    <a href="{{ url_for('home') }}">back home!</a>
+  </div>
+</body>
+</html>
