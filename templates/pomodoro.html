@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>pomodoro timer!</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin: 40px; }
+    #timer { font-size: 48px; margin: 20px 0; }
+    #phase { font-size: 24px; }
+    button { padding: 8px 16px; font-size: 16px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>pomodoro timer!</h1>
+
+  <h2 id="phase">{{ phase }}</h2>
+  <div id="timer">{{ time_left }}</div>
+  <p>Cycle: {{ cycle }}</p>
+
+  <form method="POST" style="display:inline;">
+    <button name="start" type="submit">Start</button>
+  </form>
+  <form method="POST" style="display:inline;">
+    <button name="stop" type="submit">Stop</button>
+  </form>
+
+  <p><a href="{{ url_for('home') }}">⬅️ Back Home</a></p>
+
+<script>
+  const evtSource = new EventSource("{{ url_for('pomodoro_stream') }}");
+  const timerEl = document.getElementById('timer');
+  const phaseEl = document.getElementById('phase');
+  const cycleEl = document.querySelector('p');
+
+  evtSource.onmessage = function(e) {
+    try {
+      const data = JSON.parse(e.data);
+      const remaining = parseInt(data.remaining);
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      timerEl.textContent = String(mins).padStart(2, '0') + ":" + String(secs).padStart(2, '0');
+      phaseEl.textContent = data.phase;
+      cycleEl.textContent = "Cycle: " + data.cycle;
+    } catch (err) {
+      console.error("Bad SSE data:", e.data, err);
+    }
+  };
+
+  evtSource.onerror = function() {
+    console.warn("SSE connection lost. Reconnecting...");
+  };
+</script>
+</body>
+</html>
