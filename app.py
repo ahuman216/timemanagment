@@ -3,7 +3,7 @@ import threading
 import time
 import pomodoro
 import todo
-
+       
 app = Flask(__name__)
 @app.route("/pomodoro", methods=["GET", "POST"])
 def pomodoro_page():
@@ -70,6 +70,11 @@ def todo_page():
                 todo.save_tasks(tasks)
 
     return render_template("todo.html", tasks=tasks)
+
+@app.route("/todols", methods=["GET", "POST"])
+def todo_ls_page():
+    return render_template("todo_localstorage.html")
+
 
 #home
 @app.route("/")
