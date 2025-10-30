@@ -74,7 +74,7 @@ def todo_page():
 @app.route("/todols", methods=["GET", "POST"])
 def todo_ls_page():
     return render_template("todo_ls.html")
-    #return render_template("todo_localstorage.html")
+    #return render_template("todo.html")
 
 
 #home
