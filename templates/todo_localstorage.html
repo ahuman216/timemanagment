@@ -1,77 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>To-Do List</title>
+  <title>to-do list!!</title>
   <style>
-    body { font-family: Arial; margin: 40px; }
-    h1 { text-align: center; }
-    form { text-align: center; margin-bottom: 20px; }
-    input[type=text] { padding: 8px; width: 250px; }
-    button { padding: 8px 16px; }
-    ul { list-style: none; padding: 0; max-width: 400px; margin: auto; }
-    li { background: #f0f0f0; padding: 10px; margin: 5px 0;
-         display: flex; justify-content: space-between; border-radius: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffe6f2; 
+      color: #b34d7d;
+      margin: 40px;
+      text-align: center;
+    }
+
+    .container {
+      border: 2px solid #ffb6c1;
+      border-radius: 15px;
+      padding: 20px;
+      width: 400px;
+      margin: auto;
+      background-color: #fffafa;
+    }
+
+    h1 {
+      color: #ff66b2;
+      margin-bottom: 20px;
+    }
+
+    input[type=text] {
+      padding: 5px;
+      width: 200px;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff8cb3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff0f5;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    li button {
+      margin-left: 10px;
+      padding: 3px 6px;
+    }
+
+    a {
+      color: #ff66b2;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>📝 To-Do List</h1>
 
-  <form id="addForm">
-    <input type="text" id="taskInput" placeholder="Enter a new task" required>
-    <button type="submit">Add</button>
-  </form>
+  <div class="container">
+    <h1>to-do list!!</h1>
 
-  <ul id="taskList"></ul>
+    <form id="addForm">
+      <input type="text" id="taskInput" placeholder="Enter a new task" required>
+      <button type="submit">Add</button>
+    </form>
 
-  <div style="text-align:center;">
-    <a href="{{ url_for('home') }}">⬅️ Back Home</a>
+    <ul id="taskList"></ul>
+
+    <p><a href="{{ url_for('home') }}">back home!</a></p>
   </div>
 
   <script>
-    const taskInput = document.getElementById('taskInput');
-    const taskList = document.getElementById('taskList');
-    const STORAGE_KEY = "todo_tasks";
+    var taskInput = document.getElementById('taskInput');
+    var taskList = document.getElementById('taskList');
+    var STORAGE_KEY = "todo_tasks";
 
-    // Load tasks from localStorage
     function loadTasks() {
-      const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      var tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       taskList.innerHTML = "";
-      tasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-        const delBtn = document.createElement('button');
+      for (var i = 0; i < tasks.length; i++) {
+        var li = document.createElement('li');
+        li.textContent = tasks[i];
+
+        var delBtn = document.createElement('button');
         delBtn.textContent = '❌';
-        delBtn.style.marginLeft = '10px';
-        delBtn.onclick = () => removeTask(index);
+        delBtn.onclick = (function(index) {
+          return function() { removeTask(index); }
+        })(i);
+
         li.appendChild(delBtn);
         taskList.appendChild(li);
-      });
+      }
     }
 
-    // Save tasks to localStorage
     function saveTasks(tasks) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
       loadTasks();
     }
 
-    // Add a new task
-    document.getElementById('addForm').addEventListener('submit', function(e) {
+    document.getElementById('addForm').onsubmit = function(e) {
       e.preventDefault();
-      const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      var tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       tasks.push(taskInput.value.trim());
       taskInput.value = "";
       saveTasks(tasks);
-    });
+    };
 
-    // Remove task
     function removeTask(index) {
-      const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      var tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       tasks.splice(index, 1);
       saveTasks(tasks);
     }
 
-    // Initial load
     loadTasks();
   </script>
+
 </body>
 </html>
