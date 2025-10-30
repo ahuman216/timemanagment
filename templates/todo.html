@@ -3,38 +3,119 @@
 <head>
   <title>to-do list!</title>
   <style>
-    body { font-family: Arial; margin: 40px; }
-    h1 { text-align: center; }
-    form { text-align: center; margin-bottom: 20px; }
-    input[type=text] { padding: 8px; width: 250px; }
-    button { padding: 8px 16px; }
-    ul { list-style: none; padding: 0; max-width: 400px; margin: auto; }
-    li { background: #f0f0f0; padding: 10px; margin: 5px 0;
-         display: flex; justify-content: space-between; border-radius: 5px; }
+
+    body {
+      font-family: "Comic Sans MS", "Poppins", cursive;
+      background-color: #ffe6f2; 
+      color: #b34d7d; 
+      margin: 40px;
+      text-align: center;
+    }
+
+    
+    .container {
+      border: 3px solid #ffb6c1;
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      background: #fffafa;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #ff66b2;
+      margin-bottom: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input[type=text] {
+      padding: 8px;
+      width: 250px;
+      border-radius: 10px;
+      border: 1px solid #ffb6c1;
+      outline: none;
+    }
+
+    input[type=text]:focus {
+      border-color: #ff8cb3;
+      box-shadow: 0 0 5px rgba(255, 105, 180, 0.4);
+    }
+
+    button {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: #ffb6c1;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(255, 105, 180, 0.3);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff8cb3;
+      transform: scale(1.05);
+      box-shadow: 3px 3px 8px rgba(255, 105, 180, 0.5);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    li {
+      background: #fff0f5;
+      padding: 10px;
+      margin: 5px 0;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 10px;
+      box-shadow: 1px 1px 5px rgba(255, 192, 203, 0.3);
+    }
+
+    a {
+      color: #ff66b2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }     
+
   </style>
 </head>
 <body>
-  <h1>to-do list!</h1>
 
-  <form method="POST">
-    <input type="text" name="task" placeholder="Enter a new task" required>
-    <button name="add">add</button>
-  </form>
+  <div class="container">
+    <h1>to-do list!!</h1>
 
-  <ul>
-    {% for task in tasks %}
-      <li>
-        {{ task }}
-        <form method="POST" style="display:inline;">
-          <button name="delete" value="{{ loop.index0 }}">❌</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
+    <form method="POST">
+      <input type="text" name="task" placeholder="enter your next thing to do!" required>
+      <button name="add">Add</button>
+    </form>
 
-  <br>
-  <div style="text-align:center;">
-    <a href="{{ url_for('home') }}">back home!</a>
+    <ul>
+      {% for task in tasks %}
+        <li>
+          {{ task }}
+          <form method="POST" style="display:inline;">
+            <button name="delete" value="{{ loop.index0 }}">✖️</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <p><a href="{{ url_for('home') }}">back home!</a></p>
   </div>
+
 </body>
 </html>

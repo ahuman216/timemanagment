@@ -4,27 +4,100 @@
   <meta charset="utf-8" />
   <title>pomodoro timer!</title>
   <style>
-    body { font-family: Arial; text-align: center; margin: 40px; }
-    #timer { font-size: 48px; margin: 20px 0; }
-    #phase { font-size: 24px; }
-    button { padding: 8px 16px; font-size: 16px; margin: 5px; }
+  
+    body {
+      font-family: "Comic Sans MS", "Poppins", cursive;
+      text-align: center;
+      margin: 40px;
+      background-color: #ffe6f2;
+      color: #b34d7d; 
+    }
+
+    .container {
+      border: 3px solid #ffb6c1;
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      background: #fffafa;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #ff66b2;
+      margin-bottom: 20px;
+    }
+
+    h2#phase {
+      font-size: 1.8em;
+      color: #ff4da6;
+      margin-bottom: 10px;
+    }
+
+    
+    #timer {
+      font-size: 48px;
+      margin: 20px 0;
+      color: #ff3399;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 15px 0;
+    }
+
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border-radius: 20px;
+      border: none;
+      background-color: #ffb6c1;
+      color: white;
+      font-weight: bold;
+      box-shadow: 2px 2px 6px rgba(255, 105, 180, 0.3);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff8cb3;
+      transform: scale(1.05);
+      box-shadow: 3px 3px 8px rgba(255, 105, 180, 0.5);
+    }
+
+    
+    a {
+      color: #ff66b2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>pomodoro timer!</h1>
 
-  <h2 id="phase">{{ phase }}</h2>
-  <div id="timer">{{ time_left }}</div>
-  <p>Cycle: {{ cycle }}</p>
+  <div class="container">
+    <h1>🌷pomodoro timer!🌷</h1>
 
-  <form method="POST" style="display:inline;">
-    <button name="start" type="submit">Start</button>
-  </form>
-  <form method="POST" style="display:inline;">
-    <button name="stop" type="submit">Stop</button>
-  </form>
+    <h2 id="phase">{{ phase }}</h2>
+    <div id="timer">{{ time_left }}</div>
+    <p>Cycle: {{ cycle }}</p>
 
-  <p><a href="{{ url_for('home') }}">⬅️ Back Home</a></p>
+    <form method="POST" style="display:inline;">
+      <button name="start" type="submit">Start</button>
+    </form>
+    <form method="POST" style="display:inline;">
+      <button name="stop" type="submit">Stop</button>
+    </form>
+      
+    <p><a href="{{ url_for('home') }}">back home!</a></p>
+  </div>
 
 <script>
   const evtSource = new EventSource("{{ url_for('pomodoro_stream') }}");
@@ -42,13 +115,14 @@
       phaseEl.textContent = data.phase;
       cycleEl.textContent = "Cycle: " + data.cycle;
     } catch (err) {
-      console.error("Bad SSE data:", e.data, err);
+      console.error("bad sse data:", e.data, err);
     }
   };
 
   evtSource.onerror = function() {
-    console.warn("SSE connection lost. Reconnecting...");
+    console.warn("sse connection lost, reconnecting...");
   };
+  
 </script>
 </body>
 </html>
